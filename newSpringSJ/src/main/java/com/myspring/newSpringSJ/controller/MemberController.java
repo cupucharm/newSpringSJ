@@ -1,7 +1,12 @@
 package com.myspring.newSpringSJ.controller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,15 +22,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.myspring.newSpringSJ.entity.MemberVO;
+import com.myspring.newSpringSJ.service.MailService;
 import com.myspring.newSpringSJ.service.MemberService;
+
 
 
 @Controller("memberController")
 @RequestMapping("/member")
 public class MemberController extends BaseController {
+	
 
 	@Autowired
 	private MemberService memberService;
+	
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	@ResponseBody
@@ -96,7 +105,8 @@ public class MemberController extends BaseController {
 		} else {		
 			if (notNullCheck(registerMap)) {
 				memberService.addMember(registerMap);
-				map.put("message", registerMap.get("member_id") + "님 회원가입을 축하드립니다.");
+				map.put("status", "success");
+				map.put("message", registerMap.get("member_name") + "님 회원가입을 축하드립니다.");
 				map.put("url", "loginForm.do");
 			
 			} else {
@@ -115,7 +125,9 @@ public class MemberController extends BaseController {
 		map.put("result", result);
 		return map;
 	}
-
+	
+	
+	
 	public boolean notNullCheck(HashMap<String, String> registerMap) {
 		String a = registerMap.get("member_id");
 		String b = registerMap.get("member_pw");

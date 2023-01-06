@@ -125,6 +125,7 @@ function fn_modify_member_info(attribute){
 		});	
 } 
 </script>
+<title>BOOKDUKE : 마이페이지</title>
 </head>
 
 <body>
@@ -140,7 +141,7 @@ function fn_modify_member_info(attribute){
 				<tr class="dot_line">
 					<td class="fixed_join">아이디</td>
 					<td>
-						<input name="member_id" type="text" size="20" value="${memberInfo.member_id }"  disabled/>
+						<input name="member_id" type="text" size="25" value="${memberInfo.member_id }"  disabled/>
 					</td>
 					 <td>
 					</td>
@@ -148,7 +149,7 @@ function fn_modify_member_info(attribute){
 				<tr class="dot_line">
 					<td class="fixed_join">비밀번호</td>
 					<td>
-					  <input name="member_pw" type="password" size="20" value="${memberInfo.member_pw }" />
+					  <input name="member_pw" type="password" size="25" value="${memberInfo.member_pw }" />
 					</td>
 					<td>
 					  <input type="button" value="수정하기" onClick="fn_modify_member_info('member_pw')" />
@@ -157,7 +158,7 @@ function fn_modify_member_info(attribute){
 				<tr class="dot_line">
 					<td class="fixed_join">이름</td>
 					<td>
-					  <input name="member_name" type="text" size="20" value="${memberInfo.member_name }"  disabled />
+					  <input name="member_name" type="text" size="25" value="${memberInfo.member_name }"  disabled />
 					 </td>
 					 <td>
 					</td>
@@ -195,7 +196,7 @@ function fn_modify_member_info(attribute){
 				<tr class="dot_line">
 					<td class="fixed_join">휴대폰번호</td>
 					<td>
-					   <input type="text"name="member_phone"  size=20 value="${memberInfo.member_phone }"><br> <br>
+					   <input type="text"name="member_phone"  size=25 value="${memberInfo.member_phone }"><br> <br>
 				    </td>
 					<td>
 					  <input type="button" value="수정하기" onClick="fn_modify_member_info('member_phone')" />
@@ -204,7 +205,7 @@ function fn_modify_member_info(attribute){
 				<tr class="dot_line">
 					<td class="fixed_join">이메일<br>(e-mail)</td>
 					<td>
-					   <input type="text" name="email" size=20 value="${memberInfo.email }" />
+					   <input type="text" name="email" size=25 value="${memberInfo.email }" />
 					   
 					</td>
 					<td>

@@ -25,7 +25,6 @@
     <!-- Custom styles for this template-->
     <link href="<c:url value='/resources/css/sb-admin-2.min.css'/>" rel="stylesheet">
 <link href="${contextPath}/resources/css/main.css" rel="stylesheet" type="text/css" media="screen">
-<title><tiles:insertAttribute name="title" /></title>
 	
 </head>
 

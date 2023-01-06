@@ -9,8 +9,7 @@
 		if(loopSearch==false)
 			return;
 	 	
-		var value=document.frmSearch.searchWord.value; 
-		/* var value = document.getElementById('searchWord').value; */
+		var value=document.frmSearch.searchWord.value;
 		fetch("${contextPath}/goods/keywordSearch.do", {
 			//option
 			method: 'POST',
@@ -23,14 +22,12 @@
 		})
 		.then(response => response.json())
 		.then(jsonResult => {
-			console.log("ssdss")
 			displayResult(jsonResult)
 		});	
 	}
 	
 	function displayResult(jsonInfo){
-		var count = jsonInfo.keyword.length;
-		if(count > 0) {
+		if(jsonInfo.keyword != "") {
 		    var html = '';
 		    for(var i in jsonInfo.keyword){
 			   html += "<a href=\"javascript:select('"+jsonInfo.keyword[i]+"')\">"+jsonInfo.keyword[i]+"</a><br/>";
@@ -200,7 +197,7 @@
 						<c:when test="${not empty memberInfo}">
 							<a class="dropdown-item" href="<c:url value='/mypage/myDetailInfo.do'/>">  <i class="bi bi-emoji-smile"></i> 마이페이지
 							</a>
-							<a class="dropdown-item" href="#"> <i class="bi bi-bag-heart"></i> 주문/배송조회
+							<a class="dropdown-item" href="<c:url value='/mypage/myPageMain.do'/>"> <i class="bi bi-bag-heart"></i> 주문 조회
 							</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item"

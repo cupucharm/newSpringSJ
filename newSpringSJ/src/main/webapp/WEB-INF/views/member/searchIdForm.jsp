@@ -5,6 +5,7 @@
 <!DOCTYPE html >
 <html>
 <head>
+<title>BOOKDUKE : 아이디 찾기</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="<c:url value='/resources/css/search.css'/>">
 </head>

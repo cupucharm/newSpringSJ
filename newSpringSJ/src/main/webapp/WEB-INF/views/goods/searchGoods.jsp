@@ -13,7 +13,7 @@
       pageContext.setAttribute("br", "<br/>"); //br 태그
 %> 
 <head>
- <title>검색 도서 목록 페이지</title>
+ <title>BOOKDUKE : 검색 도서 목록 페이지</title>
 </head>
 <body>
 	<hgroup>

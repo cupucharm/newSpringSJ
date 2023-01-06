@@ -3,6 +3,8 @@
 	isELIgnored="false"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<head>
+<title>BOOKDUKE : 주문 상세보기</title>
 </head>
 <body>
 	<h1>1. 주문 상세정보</h1>

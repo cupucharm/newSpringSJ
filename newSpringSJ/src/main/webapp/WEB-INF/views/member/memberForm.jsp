@@ -5,6 +5,7 @@
 <!DOCTYPE html >
 <html>
 <head>
+<title>BOOKDUKE : 회원가입</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="<c:url value='/resources/css/memberInsert.css'/>">
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -46,18 +47,8 @@ function execDaumPostcode() {
 	      document.getElementById('zipcode').value = data.zonecode; //5자리 새우편번호 사용
 	      document.getElementById('roadAddress').value = fullRoadAddr;
 	      document.getElementById('jibunAddress').value = data.jibunAddress;
-	      // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-	      if(data.autoRoadAddress) {
-	        //예상되는 도로명 주소에 조합형 주소를 추가한다.
-	        var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-	        document.getElementById('guide').innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-	      } else if(data.autoJibunAddress) {
-	          var expJibunAddr = data.autoJibunAddress;
-	          document.getElementById('guide').innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-	      } else {
-	          document.getElementById('guide').innerHTML = '';
-	      }
-	      
+	    
+	      autoClose: true;
 	     
 	    }
 	 }).open();
@@ -87,22 +78,32 @@ async function register() {
 	if (jsonResult.result == 'true') {
     	alert("이미 사용중인 아이디입니다.");
     } else {
-    	fetch('${contextPath}/member/addMember.do', {
-    		//option
-    		method: 'POST',
-    		headers: {
-    			'Content-Type': 'application/json;charset=utf-8'
-    		},
-    		body: JSON.stringify(param)
-    	})
-    		.then(response => response.json())
-    		.then(jsonResult => {
-    			alert(jsonResult.message);
-    			if (jsonResult.url != null) {
-    				location.href = jsonResult.url;
-    			}
-    		});
-    }
+    	
+    	if (document.querySelector("#mail_check_input_box_warn").getAttribute("class") == 'incorrect'){
+    		alert("이메일 인증에 실패했습니다.");
+    	} else{
+    	
+	    	fetch('${contextPath}/member/addMember.do', {
+    			//option
+    			method: 'POST',
+    			headers: {
+    				'Content-Type': 'application/json;charset=utf-8'
+   		 		},
+   		 		body: JSON.stringify(param)
+    		})
+    			.then(response => response.json())
+    			.then(jsonResult => {
+    				alert(jsonResult.message);
+    				if (jsonResult.status == 'success') {
+    					sendMail();
+    				}
+    				
+    				if (jsonResult.url != null) {
+    					location.href = jsonResult.url;
+    				}
+    			});
+    		}
+   	 }
 } 
 
 async function fn_overlapped(){
@@ -120,8 +121,66 @@ async function fn_overlapped(){
     }
  }	
  
+ var code = "";
+
+function mailCheck() {
+	let checkBox = document.querySelector("#mail_check_input");
+	let boxWrap = document.querySelector(".mail_check_input_box");
+	alert("이메일 인증 메일을 보냈습니다. \n\n최대 1분 소요 예정입니다. \n확인 후 아래 칸에 입력해주세요.")
+	
+	fetch("${contextPath}/mail/mailCheck.do", {
+		//option
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json;charset=utf-8'
+		},
+		body: JSON.stringify({
+			"email": email.value
+		})
+	})
+		.then(response => response.json())
+		.then(jsonResult => {
+			checkBox.removeAttribute("disabled");
+			boxWrap.setAttribute("id", "mail_check_input_box_true");
+			code = jsonResult.num;
+		});
+	}
+	
+function sendMail() {
+	
+	let param = {
+			"member_id": document.getElementById('member_id').value,
+			"member_name": document.getElementById('member_name').value,
+			"email": document.getElementById('email').value
+	};
+	
+	fetch("${contextPath}/mail/registerMail.do", {
+		//option
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json;charset=utf-8'
+		},
+		body: JSON.stringify(param)
+	})
+		.then(response => response.json())
+		.then(jsonResult => {
+			
+		});
+	}
 
 
+function checkEmailVaild() {
+	let inputCode = document.querySelector("#mail_check_input").value;
+	let checkResult = document.querySelector("#mail_check_input_box_warn");
+	
+	if(inputCode == code){                            // 일치할 경우
+        checkResult.innerHTML = "인증번호가 일치합니다.";
+        checkResult.setAttribute("class", "correct");        
+    } else {                                            // 일치하지 않을 경우
+        checkResult.innerHTML= "인증번호를 다시 확인해주세요.";
+        checkResult.setAttribute("class", "incorrect");
+    }  
+}
 </script>
 </head>
 <body>
@@ -151,11 +210,27 @@ async function fn_overlapped(){
 			</div>
 
 			<div class="fixed_join">
-				<input name="member_phone" type="number" id="member_phone" placeholder="전화번호" required="required">
+				<input name="member_phone" type="number" id="member_phone" placeholder="전화번호 ' - ' 빼고 입력하세요" required="required">
 			</div>
 
 			<div class="fixed_join">
 				<input name="email" type="text" id="email" placeholder="이메일" required="required">
+			
+			
+			<div class="mail_check_wrap">
+			
+			<input type="button" class="mail_check_button" id="emailVal" value="인증번호 전송" onclick="mailCheck()">
+			
+			</div>
+			</div>
+
+			<div class="fixed_join">
+			<div class="mail_check_input_box" id="mail_check_input_box_false">
+				<input class="mail_check_input" id="mail_check_input" disabled="disabled" placeholder="이메일 인증번호를 입력하세요">
+			</div>
+			<input type="button" class="mail_val_button" id="emailValChk" value="인증번호 확인" onclick="checkEmailVaild()">
+			<div class="clearfix"></div>
+			<span id="mail_check_input_box_warn"></span>
 			</div>
 
 			<div class="fixed_join">

@@ -14,7 +14,7 @@
 %>  
 <html>
 <head>
-
+<title>BOOKDUKE : 상품 상세보기</title>
 <script type="text/javascript">
 	function add_cart(goods_id) {
 		$.ajax({

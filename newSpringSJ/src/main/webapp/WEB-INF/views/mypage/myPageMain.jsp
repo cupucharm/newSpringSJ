@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>BOOKDUKE : 주문 내역</title>
 <meta charset="utf-8">
 <c:if test="${message=='cancel_order'}">
 	<script>

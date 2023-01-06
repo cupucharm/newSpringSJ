@@ -52,7 +52,7 @@ public class MyPageController extends BaseController {
 	}
 
 	@RequestMapping("/myDetailInfo.do")
-	public String loginForm() throws Exception {
+	public String myDetailInfo() throws Exception {
 		return "/mypage/myDetailInfo";
 	}
 
