@@ -1,2 +1,2 @@
 /target/
-spring/root-context.xml
+newSpringSJ/src/main/webapp/WEB-INF/spring/root-context.xml
