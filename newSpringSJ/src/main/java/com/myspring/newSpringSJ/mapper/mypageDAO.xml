@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myspring.newSpringSJ.mapper.MyPageDAO">
+
+ <select id="selectMyOrderGoodsList" resultType="com.myspring.newSpringSJ.entity.OrderVO"  parameterType="String"  >
+			select * from tb_order
+            where member_id=#{member_id}
+            order by pay_order_time desc
+	</select>
+
+<select id="selectMyDetailInfo" resultType="com.myspring.newSpringSJ.entity.MemberVO"   parameterType="String"  >
+			select * from tb_member 
+			where member_id=#{member_id}
+	</select>
+
+<update id="updateMyInfo" parameterType="java.util.HashMap">
+	   update tb_member
+			   <set>
+			      <if test=" member_pw!='' and member_pw!=null">
+			        member_pw=#{member_pw},
+			      </if>
+			      <if test=" member_gender!='' and member_gender!=null">
+			         member_gender=#{member_gender},
+			      </if>
+			       <if test=" member_birth_!='' and member_birth!=null">
+			         member_birth=#{member_birth},
+			      </if>
+			      <if test=" member_phone!='' and member_phone!=null">
+			         member_phone!=#{member_phone!=},
+			      </if>
+			      <if test=" email!='' and email!=null">
+			         email=#{email},
+			      </if>
+			      <if test=" zipcode!='' and zipcode!=null">
+			         zipcode=#{zipcode},
+			      </if>
+			      <if test=" roadAddress!='' and roadAddress!=null">
+			         roadAddress=#{roadAddress},
+			      </if>			     
+			      <if test=" jibunAddress!='' and jibunAddress!=null">
+			         jibunAddress=#{jibunAddress},
+			      </if>
+			      <if test=" namujiAddress!='' and namujiAddress!=null">
+			         namujiAddress=#{namujiAddress}
+			      </if>
+			   </set>
+		where 
+		member_id=#{member_id}
+	</update>
+
+</mapper>

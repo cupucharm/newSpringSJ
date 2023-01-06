@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+#loginPtag {
+	font-size: 3.5rem;
+	color: #6667AB;
+	text-align: center;
+}
+
+.main {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding: 50px 0px;
+	/* margin-right: 14rem; */
+}
+
+
+.bottomDiv {
+	text-align: center;
+}
+
+#loginbtn {
+	width: 25rem;
+	background-color: #6667AB;
+	border-color: #6667AB;
+	color: white;
+	font-size: 25px;
+	margin-bottom: 25px;
+	border: 1px solid #6667AB;
+	border-radius: 3px;
+	padding: 0.5rem;
+}
+
+.account {
+	width: 25rem;
+	font-size: 20px;
+	display: block;
+	margin-bottom: 3px;
+	padding: 1rem;
+	border: 1px solid lightgray;
+	border-radius: 3px;
+	display: block;
+}
+
+.frmLogin {
+	margin: 0 auto;
+}
+
+.accountPlus {
+	background-color: white;
+	color: #6667AB;
+	font-size: 20px;
+	border: none;
+}
+
+.search {
+	margin-left: 5px;
+}
+
+.bottomDiv>#register {
+	/* border-right: 2px solid #6667AB; */
+	margin-right: 5px;
+}
+
+.bottomDiv>#searchPw {
+	margin-left: 5px;
+}
