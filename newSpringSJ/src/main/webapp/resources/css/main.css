@@ -468,3 +468,31 @@ ul.tabs li.active a:hover {
 	font-weight: bold;
 	display: inline;
 }
+
+
+#before_pwd, #before_update_pwdBtn {
+	margin: 5px;
+	padding: 10px 10px;
+	border: 2px solid lightgray;
+	border-radius: 3px;
+}
+
+#before_update_pwdBtn{
+	width: 224px;
+}
+
+#before_pwd {
+	width: 200px;
+}
+
+#before_update_pwdBtn{
+	/* width: 150px; */
+	height: 40px;
+	border: none;
+	background-color: white;
+	color: #6667AB;
+	font-size: 20px;
+	/* margin-bottom: 40px; */
+	font-weight: bold;
+	/* display: inline; */
+}

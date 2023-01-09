@@ -47,9 +47,9 @@ public class MyPageController extends BaseController {
 		return "/mypage/myDetailInfo";
 	}
 	
-	@RequestMapping("/updateMyInfo.do")
-	public String updateMyInfo() throws Exception {
-		return "/mypage/updateMyInfo";
+	@RequestMapping("/beforeUpdate.do")
+	public String beforeUpdate() throws Exception {
+		return "/mypage/beforeUpdate";
 	}
 
 //	@RequestMapping(value = "/modifyMyInfo.do", method = RequestMethod.POST)

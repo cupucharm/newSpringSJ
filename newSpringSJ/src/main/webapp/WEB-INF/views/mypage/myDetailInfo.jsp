@@ -2,7 +2,6 @@
 	pageEncoding="utf-8"
 	isELIgnored="false"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <!DOCTYPE html >
 <html>
 <head>
@@ -94,7 +93,7 @@
 		<table align=center>
 		<tr>
 			<td >
-				<input name="updateMemberBtn" id="updateMemberBtn" type="button"  value="수정하기" onclick="location.href='<c:url value='/mypage/updateMyInfo.do'/>'">
+				<input name="updateMemberBtn" id="updateMemberBtn" type="button"  value="수정하기" onclick="location.href='<c:url value='/mypage/beforeUpdate.do'/>'">
 			</td>
 		</tr>	</table>
 
