@@ -26,9 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.myspring.newSpringSJ.service.MailService;
 
 
-/**
- * Handles requests for the application home page.
- */
 @Controller("mailController")
 @EnableAsync	//비동기로 호출되어서 동작함
 @RequestMapping("/mail")
@@ -39,8 +36,7 @@ public class MailController {
 
 	@RequestMapping("/mailCheck.do")
 	@ResponseBody
-	public Map<String, String> mailCheck(@RequestBody HashMap<String, String> emailMap, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public Map<String, String> mailCheck(@RequestBody HashMap<String, String> emailMap) throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
 		
 		String toMail = emailMap.get("email");
@@ -69,8 +65,7 @@ public class MailController {
 	
 	@RequestMapping("/registerMail.do")
 	@ResponseBody
-	public Map<String, String> registerMail(@RequestBody HashMap<String, String> emailMap, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public Map<String, String> registerMail(@RequestBody HashMap<String, String> emailMap) throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
 		
 		String toMail = emailMap.get("email");	
@@ -93,4 +88,33 @@ public class MailController {
         
         return map;
 	}
+	
+	@RequestMapping("/changePw.do")
+	@ResponseBody
+	public Map<String, String> changePw(@RequestBody HashMap<String, String> emailMap) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		
+		String toMail = emailMap.get("email");
+		
+		Random random = new Random();
+		String checkNum = Integer.toString(random.nextInt(888888) + 111111);
+		
+		
+		BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/mail/changePw.html"), "utf-8"));
+		StringBuilder str = new StringBuilder();
+		reader.lines().forEach(lineText -> {
+			str.append(lineText);
+		});
+		
+		String content =  str.toString();
+		content = content.replace("${checkNum}", checkNum);
+		
+        String title = "[BOOKDUKE] 부크듀크 서점 비밀번호 변경 이메일입니다.";
+        
+        mailService.sendMail(toMail, title, content);
+        
+        map.put("num", checkNum);
+        return map;
+	}
+	
 }

@@ -43,12 +43,9 @@ public class GoodsController extends BaseController {
 	@RequestMapping(value = "/keywordSearch.do", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> keywordSearch(@RequestBody HashMap<String, String> searchMap) throws Exception {
-		System.out.println("searchMap : " + searchMap);
-		System.out.println("searchMap : " + searchMap.get("keyword").length());
 		Map<String, Object> map = new HashMap<String, Object>();
 		String keyword = searchMap.get("keyword");
 		if (keyword == null || keyword.equals("") ||keyword.length()==0) {
-			System.out.println("searchMap : " + map);
 			return map;
 		}
 		keyword = keyword.toUpperCase();
@@ -60,14 +57,22 @@ public class GoodsController extends BaseController {
 
 	@RequestMapping(value = "/searchGoods.do", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> searchGoods(@RequestBody HashMap<String, String> searchMap) throws Exception {
+	public Map<String, Object> searchGoods(@RequestBody HashMap<String, String> searchMap, HttpSession session) throws Exception {
 		String searchWord = searchMap.get("searchWord");
 		Map<String, Object> map = new HashMap<>();
 		
 		List<GoodsVO> goodsList = goodsService.searchGoods(searchWord);
-		map.put("goodsList", goodsList);
+		
+		session.setAttribute("searchWord", searchWord);
+		session.setAttribute("goodsList", goodsList);
+		
 		return map;
 
+	}
+	
+	@RequestMapping("/searchGoodsForm.do")
+	public String searchGoodsForm() throws Exception {
+		return "/goods/searchGoodsForm";
 	}
 
 	private void addGoodsInQuick(String goods_id, GoodsVO goodsVO, HttpSession session) {

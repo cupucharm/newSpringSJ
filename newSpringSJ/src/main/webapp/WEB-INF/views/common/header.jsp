@@ -61,10 +61,10 @@
 	}
 	
 	
-	let searchbtn = document.querySelector("#searchbtn");
+	/* 	let searchbtn = document.querySelector("#searchbtn");
 	if (searchbtn != null) {
 		searchbtn.onclick = (e) => {
-			search(e);
+			searchGoods(e);
 		}
 	}
 
@@ -87,7 +87,31 @@
 				
 			});
 		
-		}
+		} */
+	
+	function searchGoods(e) {
+			e.preventDefault();
+		let searchWord = document.querySelector("#searchWord").value;
+		if (searchWord==null || searchWord=='' || searchWord.length == 0){
+			alert("검색어를 입력하세요");
+	   		return;
+	    }
+
+		fetch("${contextPath}/goods/searchGoods.do", {
+			//option
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json;charset=utf-8'
+			},
+			body: JSON.stringify({
+				"searchWord" : searchWord
+			})
+		})
+			.then(response => response.json())
+			.then(jsonResult => {
+				location.href = "/goods/searchGoodsForm.do";
+			});
+	}
 
 </script>
 
@@ -119,7 +143,8 @@
 		<!-- Topbar Search -->
 		<form name="frmSearch" action="${contextPath}/goods/searchGoods.do"
 			class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
-			style="width: 50rem; padding-left: 23rem;">
+			style="width: 50rem; padding-left: 23rem;" onsubmit="return false;">
+			<input type="hidden" name="xxxx" id="xxxx" value="xxxx" />
 
 			<div class="input-group">
 
@@ -128,7 +153,7 @@
 					id="searchWord" onKeyUp="keywordSearch()" 
 					placeholder="찾으시는 도서를 검색하세요!"> 
 				<div class="input-group-append">
-					<button class="btn btn-primary" type="button" id="searchbtn">
+					<button class="btn btn-primary" type="button" id="searchbtn" onclick="searchGoods(event)">
 						<i class="fas fa-search fa-sm"></i>
 					</button>
 				</div>

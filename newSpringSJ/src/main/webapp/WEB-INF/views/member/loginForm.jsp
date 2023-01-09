@@ -24,14 +24,14 @@
 						autocomplete="none">
 					<input type="password" placeholder="Password" id="member_pw" name="member_pw"
 						class="account" autofocus="autofocus" required="required">
-						<div id="loginfail" style="color: red; margin: 1em 0;"></div>
+						<div id="loginfail" style="color: red; margin: 1em 0; text-align: center;"></div>
 					<input type="submit" value="Login" id="loginbtn" class="loginbtn">
 				</form>
 			</div>
 			<div class="bottomDiv">
 				<button id="register" class="accountPlus" onclick="location.href='${contextPath}/member/memberForm.do'">회원가입</button>
-				<button id="searchId" class="accountPlus" onclick="location.href='../Member/searchIdForm.do'">아이디찾기</button>
-				<button id="searchPw" class="accountPlus" onclick="location.href='../Member/searchPwForm.do'">비밀번호찾기</button>
+				<button id="searchId" class="accountPlus" onclick="location.href='../member/searchIdForm.do'">아이디찾기</button>
+				<button id="searchPw" class="accountPlus" onclick="location.href='../member/searchPwForm.do'">비밀번호찾기</button>
 			</div>
 		</div>
 	</div>

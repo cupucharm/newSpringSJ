@@ -229,7 +229,7 @@ article hgroup {
 	margin: 10px 0px;
 }
 article h1 {
-	padding: 0px 0px 5px; letter-spacing: 2px; font-family: "NanumGothic"; font-size: 1.1em; border-bottom-color: rgb(102, 102, 102); border-bottom-width: 2px; border-bottom-style: solid;
+	padding: 0px 0px 5px; letter-spacing: 2px; font-family: "NanumGothic"; font-size: 1.1em;
 }
 article h2 {
 	padding-top: 5px; font-size: 0.75em; font-weight: normal;
@@ -248,6 +248,7 @@ article #sorting ul li a {
 	padding: 0px 8px; border-right-color: rgb(153, 153, 153); border-right-width: 1px; border-right-style: solid; display: block;
 }
 article table#list_view {
+	margin-left:5rem;  margin-right:10rem;
 	width: 100%; color: rgb(51, 51, 51); font-size: 0.75em; margin-top: 20px; border-top-color: rgb(51, 51, 51); border-top-width: 2px; border-top-style: solid; border-collapse: collapse;
 }
 
@@ -280,7 +281,7 @@ article table#list_view td.price strong {
 	color: rgb(255, 0, 0); font-weight: bold;
 }
 article table#list_view td.buy_btns {
-	width: 80px; padding-left: 5px;
+	width: 10rem; padding-left: 5px;
 }
 article table#list_view td.buy_btns ul {
 	list-style: none;
@@ -349,13 +350,15 @@ article h4 {
 	width: 590px; font-size: 0.75em; float: left;
 }
 #detail_table table {
-	width: 95%; border-top-color: rgb(51, 51, 51); border-bottom-color: rgb(51, 51, 51); border-top-width: 2px; border-bottom-width: 1px; border-top-style: solid; border-bottom-style: solid; border-collapse: collapse;
+	width: 95%; border-top-width: 1px; border-bottom-width: 1px; border-top: solid lightgray; border-bottom-style: solid; border-collapse: collapse;
 }
 #detail_table table td {
 	padding: 7px 0px 7px 10px;
 }
 #detail_table table tr.dot_line {
-	border-bottom-color: rgb(102, 102, 102); border-bottom-width: 1px; border-bottom-style: dotted;
+	border-bottom-color: lightgray;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
 }
 
 #detail_table table tr.solid_line {
@@ -369,7 +372,7 @@ article h4 {
 }
 
 #detail_table table td.fixed_join {
-	width: 110px; font-weight: bold; color: #0000cc;background:  #e1e1ff;
+	width: 110px; font-weight: bold; color: #6667AB;background:  white; border-right: dotted lightgray;
 }
 
 #detail_table ul {
@@ -454,4 +457,14 @@ ul.tabs li.active a:hover {
 
 .del_row_line{
 	margin: 0px; padding: 10px 0px; border-bottom-color: rgb(153, 153, 153); border-bottom-width: 1px;     border-bottom-style: none;border-top-style:solid; border-top-width: 1px;border-top-color:#ffffff;
+}
+
+#updateMemberBtn {
+	border: none;
+	background-color: white;
+	color: #6667AB;
+	font-size: 22px;
+	margin-bottom: 40px;
+	font-weight: bold;
+	display: inline;
 }

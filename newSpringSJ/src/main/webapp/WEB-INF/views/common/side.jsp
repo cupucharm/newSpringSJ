@@ -113,7 +113,8 @@
                 <div id="collapsePages2" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">마이페이지:</h6>
-                        <a class="collapse-item" href="login.html">회원정보관리</a>
+                        <a class="collapse-item" href="<c:url value='/mypage/myDetailInfo.do'/>">회원정보보기</a>
+                        <a class="collapse-item" href="<c:url value='/mypage/updateMyInfo.do'/>">회원정보수정</a>
                         <a class="collapse-item" href="register.html">회원탈퇴</a>
                     </div>
                 </div>

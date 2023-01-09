@@ -14,4 +14,10 @@ public interface MemberDAO {
 	
 	String selectOverlappedID(String id);
 
+	String isMailExist(HashMap<String, String> isMailExistMap);
+
+	MemberVO selectEmail(String string);
+
+	void changePw(HashMap<String, String> pwMap);
+
 }

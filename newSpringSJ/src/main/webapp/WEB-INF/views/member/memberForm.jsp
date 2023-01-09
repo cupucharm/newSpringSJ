@@ -10,13 +10,6 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/memberInsert.css'/>">
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
-/* let registerBtn = document.querySelector("#registerBtn");
-if (registerBtn != null) {
-	registerBtn.onclick = () => {
-		alert("wrewrw");
-		register(); 
-	}
-} */
 
 function execDaumPostcode() {
 	  new daum.Postcode({
@@ -77,6 +70,7 @@ async function register() {
 	let jsonResult = await response.json();
 	if (jsonResult.result == 'true') {
     	alert("이미 사용중인 아이디입니다.");
+    	uid_valid_msg.innerHTML = "이미 사용중인 아이디입니다.";
     } else {
     	
     	if (document.querySelector("#mail_check_input_box_warn").getAttribute("class") == 'incorrect'){
@@ -109,23 +103,54 @@ async function register() {
 async function fn_overlapped(){
 	let member_id = document.querySelector("#member_id").value;
     if(member_id==null || member_id=='' || member_id.length <= 0){
-   		alert("아이디를 입력하세요");
+    	uid_valid_msg.innerHTML = "아이디를 입력하세요";
    		return;
     }
     let response = await fetch('${contextPath}/member/overlapped.do?id=' + member_id);
 	let jsonResult = await response.json();
     if (jsonResult.result == 'true') {
-    	alert("이미 사용중인 아이디입니다.");
+    	uid_valid_msg.innerHTML = "이미 사용중인 아이디입니다.";
+    	//alert("이미 사용중인 아이디입니다.");
     } else {
-    	alert("사용 가능한 아이디입니다.");
+    	uid_valid_msg.innerHTML = "사용 가능한 아이디입니다.";
+    	//alert("사용 가능한 아이디입니다.");
     }
  }	
  
  var code = "";
 
 function mailCheck() {
+	let emailDiv = document.querySelector("#email").value;
+	if (emailDiv==null || emailDiv=='' || emailDiv.length == 0){
+   		alert("이메일을 입력하세요");
+   		return;
+    }
+	
+	fetch("${contextPath}/member/isMailExist.do", {
+		//option
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json;charset=utf-8'
+		},
+		body: JSON.stringify({
+			"email": email.value
+		})
+	})
+	.then(response => response.json())
+	.then(jsonResult => {
+		if (jsonResult.status == 'true'){
+			alert(jsonResult.message);
+		} else {
+			sendEmailVal();
+		}
+	});
+	
+	}
+	
+function sendEmailVal() {
 	let checkBox = document.querySelector("#mail_check_input");
 	let boxWrap = document.querySelector(".mail_check_input_box");
+	
 	alert("이메일 인증 메일을 보냈습니다. \n\n최대 1분 소요 예정입니다. \n확인 후 아래 칸에 입력해주세요.")
 	
 	fetch("${contextPath}/mail/mailCheck.do", {
@@ -142,9 +167,10 @@ function mailCheck() {
 		.then(jsonResult => {
 			checkBox.removeAttribute("disabled");
 			boxWrap.setAttribute("id", "mail_check_input_box_true");
+			emailValChk.removeAttribute("disabled");
 			code = jsonResult.num;
 		});
-	}
+}
 	
 function sendMail() {
 	
@@ -188,9 +214,13 @@ function checkEmailVaild() {
 <div class="main">
 <p id="regPtag">회원가입<p>
 		<form action="${contextPath}/member/addMember.do" method="POST" class="register" onsubmit="return false;">
+		
 			<div class="fixed_join">
 				<input type="text" name="member_id" id="member_id" placeholder="아이디" autofocus="autofocus" required="required" autocomplete="none">
 			</div>
+			
+			<div id="uid_valid_msg"></div>
+			
 			<div class="fixed_join">
 				<input type="button"  id="btnOverlapped" value="아이디 중복 확인하기" onClick="return fn_overlapped()" />
 			</div>
@@ -226,9 +256,9 @@ function checkEmailVaild() {
 
 			<div class="fixed_join">
 			<div class="mail_check_input_box" id="mail_check_input_box_false">
-				<input class="mail_check_input" id="mail_check_input" disabled="disabled" placeholder="이메일 인증번호를 입력하세요">
+				<input class="mail_check_input" id="mail_check_input" disabled="disabled" placeholder="이메일 인증번호를 입력하세요" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength='6'>
 			</div>
-			<input type="button" class="mail_val_button" id="emailValChk" value="인증번호 확인" onclick="checkEmailVaild()">
+			<input type="button" class="mail_val_button" id="emailValChk" disabled="disabled" value="인증번호 확인" onclick="checkEmailVaild()">
 			<div class="clearfix"></div>
 			<span id="mail_check_input_box_warn"></span>
 			</div>

@@ -8,6 +8,11 @@
 	color: #6667AB;
 }
 
+#uid_valid_msg {
+	color: red;
+	font-size: 17px;
+}
+
 #mail_check_input_box_false{
     background-color:#ebebe4;
 }

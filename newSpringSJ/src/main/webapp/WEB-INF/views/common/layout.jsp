@@ -32,13 +32,12 @@
 <body>
 	<div id="outer_wrap">
 		<div id="wrap">
-			
 			<aside>
-				 <tiles:insertAttribute name="side" />
+				<tiles:insertAttribute name="side" />
 			</aside>
 			<div>
 			<header>
-				   <tiles:insertAttribute name="header" />
+				<tiles:insertAttribute name="header" />
 			</header>
 			<article>
 			 	<tiles:insertAttribute name="body" />
@@ -46,7 +45,7 @@
 			<footer>
         		<tiles:insertAttribute name="footer" />
         	</footer>
-        	
+        	</div>
 		</div>
     </div>   
     

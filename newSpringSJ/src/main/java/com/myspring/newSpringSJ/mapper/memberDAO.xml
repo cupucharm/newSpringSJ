@@ -37,4 +37,22 @@
                                     #{namujiAddress})	
 	</insert>
 
+	<select id="isMailExist" resultType="String"  parameterType="java.util.Map"  >
+			select case when count(*)=0 then 'false' else 'true' end 
+			from tb_member 
+			where email=#{email}		
+	</select>
+	
+	<select id="selectEmail" resultType="com.myspring.newSpringSJ.entity.MemberVO" >
+			select *
+			from tb_member 
+			where email=#{email}		
+	</select>
+	
+	<update id="changePw">
+		update tb_member
+		set member_pw=#{member_pw}
+		where member_id=#{member_id}
+	</update>
+	
 </mapper>

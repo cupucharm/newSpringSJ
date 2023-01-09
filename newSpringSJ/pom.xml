@@ -126,6 +126,7 @@
 			<artifactId>mariadb-java-client</artifactId>
 			<version>3.1.0</version>
 		</dependency>
+		
 
 		<!-- spring 과 mybatis 연동 모듈 이걸 사용하므로서 sqlSessionFactoryBean을 통해 sqlSessionFactory를 
 			만듬 -->
@@ -233,7 +234,8 @@
             <artifactId>spring-context-support</artifactId>
             <version>${org.springframework-version}</version>
         </dependency>
-
+        
+		
 	
 		<!-- Test -->
 		<dependency>

@@ -1,12 +1,7 @@
 package com.myspring.newSpringSJ.controller;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.myspring.newSpringSJ.entity.MemberVO;
-import com.myspring.newSpringSJ.service.MailService;
 import com.myspring.newSpringSJ.service.MemberService;
 
 
@@ -67,6 +61,22 @@ public class MemberController extends BaseController {
 		}
 		return map;
 	}
+	
+	@RequestMapping(value = "/isExistId.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> isExistId(@RequestBody HashMap<String, String> searchPwMap) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+
+		MemberVO memberVO = memberService.isExistId(searchPwMap);
+
+		if (memberVO != null) {
+			map.put("status", "success");
+		} else {
+			map.put("status", "fail");
+			map.put("message", "일치하는 회원정보가 없습니다.");
+		}
+		return map;
+	}
 
 	@RequestMapping("/loginForm.do")
 	public String loginForm() throws Exception {
@@ -86,6 +96,30 @@ public class MemberController extends BaseController {
 	@RequestMapping("/memberForm.do")
 	public String memberForm() throws Exception {
 		return "/member/memberForm";
+	}
+	
+	@RequestMapping("/searchIdForm.do")
+	public String searchIdForm() throws Exception {
+		return "/member/searchIdForm";
+	}
+	
+	@RequestMapping("/searchPwForm.do")
+	public String searchPwForm() throws Exception {
+		return "/member/searchPwForm";
+	}
+	
+	@RequestMapping("/changePwForm.do")
+	public String changePwForm() throws Exception {
+		return "/member/changePwForm";
+	}
+	
+	@RequestMapping("/searchPw.do")
+	@ResponseBody
+	public Map<String, String> searchPw(@RequestBody HashMap<String, String> changePwMap) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("member_id", changePwMap.get("member_id"));
+		map.put("url", "/member/changePwForm.do");
+		return map;
 	}
 
 	@RequestMapping(value = "/addMember.do", method = RequestMethod.POST)
@@ -125,6 +159,63 @@ public class MemberController extends BaseController {
 		map.put("result", result);
 		return map;
 	}
+	
+	
+	
+	@RequestMapping(value = "/searchId.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> searchId(@RequestBody HashMap<String, String> searchIdMap) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+
+		String member_name = searchIdMap.get("member_name");
+		String member_id = memberService.searchId(searchIdMap);
+
+		if (member_id != null) {
+			map.put("message", member_name+ "님의 ID는 [" +member_id + "]입니다.");
+		} else {
+			map.put("message", "일치하는 회원정보가 없습니다.");
+		}
+		return map;
+	}
+
+	
+	
+	@RequestMapping(value = "/isMailExist.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> isMailExist(@RequestBody HashMap<String, String> isMailExistMap) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+
+		String mailExist = memberService.isMailExist(isMailExistMap);
+		if (mailExist.equals("true")) {
+			map.put("status", "true");
+			map.put("message", "이미 가입한 회원입니다.");
+		} else {
+			map.put("status", "false");
+		}
+		return map;
+	}
+	
+	
+	@RequestMapping(value = "/changePw.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> changePw(@RequestBody HashMap<String, String> pwMap) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		
+		if (!pwMap.get("member_pw").equals(pwMap.get("pwdConfirm"))) {
+			map.put("status", "false");
+			map.put("message", "비밀번호가 불일치합니다");
+		} else {
+			memberService.changePw(pwMap);
+			map.put("status", "true");
+			map.put("message", "비밀번호가 변경되었습니다");
+			map.put("url", "/member/loginForm.do");
+		}
+		
+		
+		
+		return map;
+	}
+	
 	
 	
 	
