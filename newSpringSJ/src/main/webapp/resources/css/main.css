@@ -459,8 +459,10 @@ ul.tabs li.active a:hover {
 	margin: 0px; padding: 10px 0px; border-bottom-color: rgb(153, 153, 153); border-bottom-width: 1px;     border-bottom-style: none;border-top-style:solid; border-top-width: 1px;border-top-color:#ffffff;
 }
 
-#updateMemberBtn {
-	border: none;
+#updateMemberBtn, #showInfoBtn {
+	border: 2px solid lightgray;
+	border-radius: 3px;
+	padding: 0.4rem;
 	background-color: white;
 	color: #6667AB;
 	font-size: 22px;
@@ -470,28 +472,33 @@ ul.tabs li.active a:hover {
 }
 
 
-#before_pwd, #before_update_pwdBtn {
+.updatePwdd {
 	margin: 5px;
-	padding: 10px 10px;
+	padding: 10px;
 	border: 2px solid lightgray;
+	border-radius: 5px;
+}
+
+#updatePwChkBtn {
+	margin: 5px;
+	padding: 7px;
+	border: 2px solid #6667AB;;
 	border-radius: 3px;
 }
 
-#before_update_pwdBtn{
+#updatePwChkBtn{
 	width: 224px;
 }
 
-#before_pwd {
+.updatePwdd {
 	width: 200px;
 }
 
-#before_update_pwdBtn{
-	/* width: 150px; */
-	height: 40px;
-	border: none;
+#updatePwChkBtn{
+	border: 2px solid lightgray;
 	background-color: white;
 	color: #6667AB;
-	font-size: 20px;
+	font-size: 18px;
 	/* margin-bottom: 40px; */
 	font-weight: bold;
 	/* display: inline; */

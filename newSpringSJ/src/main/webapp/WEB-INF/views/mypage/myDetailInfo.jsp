@@ -90,7 +90,7 @@
 		<br><br>
 		</div>
 		<div class="clear">
-		<table align=center>
+		<table align="center">
 		<tr>
 			<td >
 				<input name="updateMemberBtn" id="updateMemberBtn" type="button"  value="수정하기" onclick="location.href='<c:url value='/mypage/beforeUpdate.do'/>'">

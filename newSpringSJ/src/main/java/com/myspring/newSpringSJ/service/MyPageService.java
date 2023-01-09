@@ -27,7 +27,35 @@ public class MyPageService {
 
 	public MemberVO modifyMyInfo(Map<String, String> memberMap) {
 		String member_id = (String) memberMap.get("member_id");
+		
 		myPageDAO.updateMyInfo(memberMap);
+		return myPageDAO.selectMyDetailInfo(member_id);
+	}
+
+	public MemberVO isPwCorrect(Map<String, String> memberMap) {
+		MemberVO memberVO = myPageDAO.selectMyDetailInfo(memberMap.get("member_id"));
+
+		if (memberVO != null) {
+			if (memberMap.get("member_pw").equals(memberVO.getMember_pw())) {
+				return memberVO;
+			} else {
+				return null;
+			}
+		}
+		return memberVO;
+	}
+
+	public MemberVO updateMember(Map<String, String> memberMap) {
+		String member_id = (String) memberMap.get("member_id");
+		
+		myPageDAO.updateMember(memberMap);
+		return myPageDAO.selectMyDetailInfo(member_id);
+	}
+
+	public MemberVO deleteMember(Map<String, String> memberMap) {
+		String member_id = (String) memberMap.get("member_id");
+		
+		myPageDAO.deleteMember(memberMap);
 		return myPageDAO.selectMyDetailInfo(member_id);
 	}
 

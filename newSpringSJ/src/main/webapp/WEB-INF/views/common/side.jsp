@@ -113,9 +113,9 @@
                 <div id="collapsePages2" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">마이페이지:</h6>
-                        <a class="collapse-item" href="<c:url value='/mypage/myDetailInfo.do'/>">회원정보보기</a>
-                        <a class="collapse-item" href="<c:url value='/mypage/beforeUpdate.do'/>">회원정보수정</a>
-                        <a class="collapse-item" href="register.html">회원탈퇴</a>
+                        <a class="collapse-item" href="<c:url value='/mypage/myDetailInfo.do'/>">회원정보 보기</a>
+                        <a class="collapse-item" href="<c:url value='/mypage/beforeUpdate.do'/>">회원정보 수정</a>
+                        <a class="collapse-item" href="<c:url value='/mypage/beforeDelete.do'/>">회원 탈퇴</a>
                     </div>
                 </div>
             </li>

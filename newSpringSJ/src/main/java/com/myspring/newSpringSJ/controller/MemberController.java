@@ -32,8 +32,7 @@ public class MemberController extends BaseController {
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, String> login(@RequestBody HashMap<String, String> loginMap, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public Map<String, String> login(@RequestBody HashMap<String, String> loginMap, HttpServletRequest request) throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
 
 		MemberVO memberVO = memberService.login(loginMap);
@@ -61,6 +60,8 @@ public class MemberController extends BaseController {
 		}
 		return map;
 	}
+	
+
 	
 	@RequestMapping(value = "/isExistId.do", method = RequestMethod.POST)
 	@ResponseBody

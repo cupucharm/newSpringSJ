@@ -14,4 +14,8 @@ public interface MyPageDAO {
 
 	void updateMyInfo(Map<String, String> memberMap);
 
+	void updateMember(Map<String, String> memberMap);
+
+	void deleteMember(Map<String, String> memberMap);
+
 }

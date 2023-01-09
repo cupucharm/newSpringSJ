@@ -19,6 +19,9 @@
 			      <if test=" member_pw!='' and member_pw!=null">
 			        member_pw=#{member_pw},
 			      </if>
+			      <if test=" member_name!='' and member_name!=null">
+			        member_name=#{member_name},
+			      </if>
 			      <if test=" member_gender!='' and member_gender!=null">
 			         member_gender=#{member_gender},
 			      </if>
@@ -26,7 +29,7 @@
 			         member_birth=#{member_birth},
 			      </if>
 			      <if test=" member_phone!='' and member_phone!=null">
-			         member_phone!=#{member_phone!=},
+			         member_phone=#{member_phone},
 			      </if>
 			      <if test=" email!='' and email!=null">
 			         email=#{email},
@@ -47,5 +50,26 @@
 		where 
 		member_id=#{member_id}
 	</update>
-
+	
+	
+<update id="updateMember" parameterType="java.util.HashMap">
+	update tb_member
+	  set
+		member_pw=#{member_pw},
+		member_name=#{member_name},
+		member_gender=#{member_gender},
+		member_birth=#{member_birth},
+		member_phone=#{member_phone},
+		email=#{email},
+		zipcode=#{zipcode},
+		roadAddress=#{roadAddress},
+		jibunAddress=#{jibunAddress},
+		namujiAddress=#{namujiAddress}
+	where member_id=#{member_id}
+	</update>
+	
+	<delete id="deleteMember">
+		delete from tb_member where member_id=#{member_id}
+	</delete>
+	
 </mapper>
