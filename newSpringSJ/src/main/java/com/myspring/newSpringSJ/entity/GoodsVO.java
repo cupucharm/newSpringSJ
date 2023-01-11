@@ -20,7 +20,7 @@ public class GoodsVO {
 	private String goods_sort;
 	private int    goods_sales_price;
 	private int    goods_point;
-	private Timestamp    goods_published_date;
+	private String    goods_published_date;
 	private int    goods_total_page;
 	private String goods_isbn;
 	private String goods_delivery_price;

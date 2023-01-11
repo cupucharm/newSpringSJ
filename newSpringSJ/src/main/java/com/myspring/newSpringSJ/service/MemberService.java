@@ -1,5 +1,7 @@
 package com.myspring.newSpringSJ.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -78,6 +80,14 @@ public class MemberService {
 	public String changePw(HashMap<String, String> pwMap) {
 		memberDAO.changePw(pwMap);
 		return null;
+	}
+
+	public void setLoginTime(Map<String, String> loginTimeMap) {
+		memberDAO.setLoginTime(loginTimeMap);
+	}
+
+	public String isLoginDo(String member_id) {
+		return memberDAO.isLoginDo(member_id);
 	}
 
 

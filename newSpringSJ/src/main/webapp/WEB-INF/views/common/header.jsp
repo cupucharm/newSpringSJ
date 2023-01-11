@@ -104,7 +104,8 @@
 				'Content-Type': 'application/json;charset=utf-8'
 			},
 			body: JSON.stringify({
-				"searchWord" : searchWord
+				"searchWord" : searchWord,
+				"pageNum" : "1"
 			})
 		})
 			.then(response => response.json())
@@ -131,7 +132,10 @@
 		</div>
 
 		<div>
-			<a href="/"> BOOKDUKE</a>
+			<c:choose>
+				<c:when test="${ memberInfo.member_condition eq  'ADMIN'}"><a href="/admin/main.do"> BOOKDUKE</a></c:when>
+				<c:otherwise><a href="/"> BOOKDUKE</a></c:otherwise>
+			</c:choose>
 		</div>
 
 		<!-- Sidebar Toggle (Topbar) -->
@@ -147,8 +151,13 @@
 			<input type="hidden" name="xxxx" id="xxxx" value="xxxx" />
 
 			<div class="input-group">
+			
+			<c:choose>
+				<c:when test="${ memberInfo.member_condition eq  'ADMIN'}"><span style="padding: 6 12; color: #4e73df; font-weight: 700" onclick="location.href='/admin/main.do'">부크듀크 </span> </c:when>
+				<c:otherwise><span style="padding: 6 12; color: #4e73df; font-weight: 700" onclick="location.href='/'">부크듀크 </span> </c:otherwise>
+			</c:choose>
 
-				<span style="padding: 6 12; color: #4e73df; font-weight: 700" onclick="location.href='/'">부크듀크 </span> 
+				
 				<input type="text" class="form-control bg-light border-0 small" name="searchWord" 
 					id="searchWord" onKeyUp="keywordSearch()" 
 					placeholder="찾으시는 도서를 검색하세요!"> 
@@ -220,7 +229,15 @@
 
 					<c:choose>
 						<c:when test="${not empty memberInfo}">
-							<a class="dropdown-item" href="<c:url value='/mypage/myDetailInfo.do'/>">  <i class="bi bi-emoji-smile"></i> 마이페이지
+							<c:choose>
+								<c:when test="${memberInfo.member_condition eq  'ADMIN'}">
+									<a class="dropdown-item"
+										href="#" onclick='location.href = "<c:url value='/member/logout.do'/>"' data-toggle="modal"> <i class="bi bi-box-arrow-right"></i>
+										로그아웃
+									</a>
+								</c:when>
+								<c:otherwise>
+									<a class="dropdown-item" href="<c:url value='/mypage/myDetailInfo.do'/>">  <i class="bi bi-emoji-smile"></i> 마이페이지
 							</a>
 							<a class="dropdown-item" href="<c:url value='/mypage/myPageMain.do'/>"> <i class="bi bi-bag-heart"></i> 주문 조회
 							</a>
@@ -229,6 +246,9 @@
 								href="#" onclick='location.href = "<c:url value='/member/logout.do'/>"' data-toggle="modal"> <i class="bi bi-box-arrow-right"></i>
 								로그아웃
 							</a>
+						</c:otherwise>
+						</c:choose>
+							
 						</c:when>
 
 						<c:otherwise>

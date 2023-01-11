@@ -11,9 +11,14 @@
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
 	</definition>
+	
+	<definition name="/admin/*" extends="baseLayout">
+		<put-attribute name="side" value="/WEB-INF/views/common/adminside.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/admin/{1}.jsp" />
+	</definition>
 
 	<definition name="/*/*" extends="baseLayout">
-		<put-attribute name="side" value="/WEB-INF/views/common/side.jsp" />
+		<put-attribute name="side" value="/WEB-INF/views/common/memberside.jsp" />
 		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
 	</definition>
 	

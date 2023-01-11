@@ -6,6 +6,11 @@
 			 where member_id=#{member_id}		
 	</select>
 	
+	<select id="isLoginDo" resultType="String">
+			select member_condition from tb_member 
+			 where member_id=#{member_id}		
+	</select>
+	
 	<select id="selectOverlappedID" resultType="String" >
 			select case count(*) when 1 then  'true'  when 0 then  'false' end
 	   		from tb_member
@@ -53,6 +58,13 @@
 		update tb_member
 		set member_pw=#{member_pw}
 		where member_id=#{member_id}
+	</update>
+	
+	
+	<update id="setLoginTime">
+		update tb_member
+		set member_logintime=#{date}
+		where member_id=#{id}
 	</update>
 	
 </mapper>

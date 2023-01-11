@@ -20,4 +20,8 @@ public interface MemberDAO {
 
 	void changePw(HashMap<String, String> pwMap);
 
+	void setLoginTime(Map<String, String> loginTimeMap);
+
+	String isLoginDo(String member_id);
+
 }

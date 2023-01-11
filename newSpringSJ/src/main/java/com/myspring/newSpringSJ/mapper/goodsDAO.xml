@@ -10,7 +10,8 @@
 				where g.goods_id = d.goods_id
 					and d.filetype = 'main_image'
 					and goods_status=#{goods_status}
-				order by g.goods_creDate desc) t
+				) t 
+				order by t.goods_id desc
 				limit 16
 </select>
 
