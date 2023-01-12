@@ -61,34 +61,6 @@
 	}
 	
 	
-	/* 	let searchbtn = document.querySelector("#searchbtn");
-	if (searchbtn != null) {
-		searchbtn.onclick = (e) => {
-			searchGoods(e);
-		}
-	}
-
-	function search(e) {
-		e.preventDefault();
-		var value=document.frmSearch.searchWord.value;
-		
-		fetch("${contextPath}/goods/searchGoods.do", {
-			//option
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json;charset=utf-8'
-			},
-			body: JSON.stringify({
-				"searchKey": value
-			})
-		})
-			.then(response => response.json())
-			.then(jsonResult => {
-				
-			});
-		
-		} */
-	
 	function searchGoods(e) {
 			e.preventDefault();
 		let searchWord = document.querySelector("#searchWord").value;
@@ -105,12 +77,13 @@
 			},
 			body: JSON.stringify({
 				"searchWord" : searchWord,
-				"pageNum" : "1"
+				"pageNum" : "1",
+				"goods_title" : "goods_title"
 			})
 		})
 			.then(response => response.json())
 			.then(jsonResult => {
-				location.href = "/goods/searchGoodsForm.do";
+				location.href = "/goods/goodsList.do";
 			});
 	}
 
@@ -143,7 +116,7 @@
 			class="btn btn-link d-md-none rounded-circle mr-3">
 			<i class="fa fa-bars"></i>
 		</button>
-
+<c:if test="${ memberInfo.member_condition  ne  'ADMIN'}">
 		<!-- Topbar Search -->
 		<form name="frmSearch" action="${contextPath}/goods/searchGoods.do"
 			class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
@@ -152,10 +125,12 @@
 
 			<div class="input-group">
 			
-			<c:choose>
+		<%-- 	<c:choose>
 				<c:when test="${ memberInfo.member_condition eq  'ADMIN'}"><span style="padding: 6 12; color: #4e73df; font-weight: 700" onclick="location.href='/admin/main.do'">부크듀크 </span> </c:when>
 				<c:otherwise><span style="padding: 6 12; color: #4e73df; font-weight: 700" onclick="location.href='/'">부크듀크 </span> </c:otherwise>
 			</c:choose>
+			 --%>
+			<span style="padding: 6 12; color: #4e73df; font-weight: 700" onclick="location.href='/'">부크듀크 </span> 
 
 				
 				<input type="text" class="form-control bg-light border-0 small" name="searchWord" 
@@ -166,9 +141,11 @@
 						<i class="fas fa-search fa-sm"></i>
 					</button>
 				</div>
+				
 			</div>
 
 		</form>
+		</c:if>
 		<div id="suggest">
         <div id="suggestList"></div>
    </div>
@@ -241,6 +218,9 @@
 							</a>
 							<a class="dropdown-item" href="<c:url value='/mypage/myPageMain.do'/>"> <i class="bi bi-bag-heart"></i> 주문 조회
 							</a>
+							<a class="dropdown-item" href="<c:url value='/cart/myCartList.do'/>"> <i class="bi bi-cart-check"></i> 장바구니
+							</a>
+							
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item"
 								href="#" onclick='location.href = "<c:url value='/member/logout.do'/>"' data-toggle="modal"> <i class="bi bi-box-arrow-right"></i>

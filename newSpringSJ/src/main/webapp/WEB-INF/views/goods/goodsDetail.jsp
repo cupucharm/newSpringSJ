@@ -16,49 +16,7 @@
 <head>
 <title>BOOKDUKE : 상품 상세보기</title>
 <script type="text/javascript">
-	function add_cart(goods_id) {
-		$.ajax({
-			type : "post",
-			async : false, //false인 경우 동기식으로 처리한다.
-			url : "${contextPath}/cart/addGoodsInCart.do",
-			data : {
-				goods_id:goods_id
-				
-			},
-			success : function(data, textStatus) {
-				//alert(data);
-			//	$('#message').append(data);
-				if(data.trim()=='add_success'){
-					imagePopup('open', '.layer01');	
-				}else if(data.trim()=='already_existed'){
-					alert("이미 카트에 등록된 상품입니다.");	
-				}
-				
-			},
-			error : function(data, textStatus) {
-				alert("에러가 발생했습니다."+data);
-			},
-			complete : function(data, textStatus) {
-				//alert("작업을완료 했습니다");
-			}
-		}); //end ajax	
-	}
-
-	function imagePopup(type) {
-		if (type == 'open') {
-			// 팝업창을 연다.
-			jQuery('#layer').attr('style', 'visibility:visible');
-
-			// 페이지를 가리기위한 레이어 영역의 높이를 페이지 전체의 높이와 같게 한다.
-			jQuery('#layer').height(jQuery(document).height());
-		}
-
-		else if (type == 'close') {
-
-			// 팝업창을 닫는다.
-			jQuery('#layer').attr('style', 'visibility:hidden');
-		}
-	}
+	
 	
 function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 	var _isLogOn=document.getElementById("isLogOn");
@@ -187,11 +145,14 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 		</table>
 		<ul>
 			<li><a class="buy" href="javascript:fn_order_each_goods('${goods.goods_id }','${goods.goods_title }','${goods.goods_sales_price}','${goods.goods_fileName}');">구매하기 </a></li>
-			<li><a class="cart" href="javascript:add_cart('${goods.goods_id }')">장바구니</a></li>
+			<%-- <li><a class="cart" id="addCaart" href="javascript:add_cart('${goods.goods_id }')">장바구니</a></li> --%>
+			<li><a class="cart" id="addCaart">장바구니</a></li>
+			
 			
 			<li><a class="wish" href="/">뒤로가기</a></li>
 		</ul>
 	</div>
+	<input type="hidden" value="${goods.goods_id }" id="goods_id">
 	<div class="clear"></div>
 	<!-- 내용 들어 가는 곳 -->
 	<div id="container">
@@ -250,6 +211,41 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 </div>
 </div>
 </div>	
+
+<script type="text/javascript">
+let addCaart = document.getElementById('addCaart');
+let goods_id = document.getElementById('goods_id').value;
+if (addCaart != null) {
+	addCaart.onclick = () => {
+		add_cart();
+	}
+}
+
+function add_cart() {
+		fetch("${contextPath}/cart/addGoodsInCart.do", {
+			//option
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json;charset=utf-8'
+			},
+			body: JSON.stringify({
+				"goods_id": goods_id
+			})
+		})
+			.then(response => response.json())
+			.then(jsonResult => {
+				if(jsonResult.result=='add_success'){
+					alert("장바구니에 추가되었습니다.");
+				}else if(jsonResult.result=='already_existed'){
+					alert("이미 장바구니에 담긴 상품입니다.");	
+				} else if(jsonResult.result=='please_login'){
+					alert("로그인 해주세요.");
+					location.href = jsonResult.url;
+				}
+			});
+}
+</script>
+
 </body>
 </html>
 <input type="hidden" name="isLogOn" id="isLogOn" value="${isLogOn}"/>

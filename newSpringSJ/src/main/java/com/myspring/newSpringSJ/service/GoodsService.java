@@ -44,7 +44,7 @@ public class GoodsService {
 		return goodsDAO.selectKeywordSearch(keyword);
 	}
 
-	public List<GoodsVO> searchGoods(String searchWord) {
-		return goodsDAO.selectGoodsBySearchWord(searchWord);
+	public List<GoodsVO> searchGoods(HashMap<String, String> searchMap) {
+		return goodsDAO.selectGoodsBySearchWord(searchMap);
 	}
 }

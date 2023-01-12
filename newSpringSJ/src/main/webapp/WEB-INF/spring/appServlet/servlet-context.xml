@@ -50,6 +50,11 @@
             <mapping path="/admin/**"></mapping>
             <beans:bean id="AdminIntreceptor" class="com.myspring.newSpringSJ.interceptor.AdminInterceptor"></beans:bean>
         </interceptor>
+        <interceptor>
+			<mapping path="/cart/**"/>
+			<exclude-mapping path="/cart/addGoodsInCart.do"/>
+			<beans:bean id="CartInterceptor" class="com.myspring.newSpringSJ.interceptor.CartInterceptor"></beans:bean>
+		</interceptor>
     </interceptors>
     
     <!-- 멀티파트 리졸버 -->

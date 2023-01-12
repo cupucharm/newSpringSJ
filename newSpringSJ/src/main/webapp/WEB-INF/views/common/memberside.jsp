@@ -44,10 +44,10 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">도서 목록:</h6>
-                        <a class="collapse-item" href="buttons.html">베스트셀러</a>
-                        <a class="collapse-item" href="buttons.html">스테디셀러</a>
-                        <a class="collapse-item" href="buttons.html">새로나온책</a>
-                        <a class="collapse-item" href="cards.html">IT/인터넷</a>
+                        <a class="collapse-item" onclick="showGoods(this)" data-value="%">전체보기</a>
+                        <a class="collapse-item" onclick="showGoods(this)" data-value="1">베스트셀러</a>
+                        <a class="collapse-item" onclick="showGoods(this)" data-value="2">스테디셀러</a>
+                        <a class="collapse-item" onclick="showGoods(this)" data-value="3">새로나온책</a>
                     </div>
                 </div>
             </li>
@@ -101,6 +101,14 @@
                     <i class="bi bi-bag-heart"></i>
                     <span>주문 조회</span></a>
             </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="<c:url value='/cart/myCartList.do'/>">
+                    <i class="bi bi-cart-check"></i>
+                    <span>장바구니</span></a>
+            </li>
+            
+            
 
             <!-- Nav Item - Pages Collapse Menu -->
            
@@ -134,4 +142,28 @@
            
         </ul>
         <!-- End of Sidebar -->
+        <script type="text/javascript">
+
+
+		function showGoods(item) {
+			
+			fetch("${contextPath}/goods/searchGoods.do", {
+				//option
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json;charset=utf-8'
+				},
+				body: JSON.stringify({
+					"searchWord": item.getAttribute('data-value'),
+					"pageNum" : "1",
+					"goods_status" : "goods_status"
+				})
+			})
+			.then(response => response.json())
+			.then(jsonResult => {
+				location.href = "/goods/goodsList.do";
+			});
+			
+			}
+</script>
 </html>

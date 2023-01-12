@@ -6,7 +6,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <%
      //치환 변수 선언합니다.
       pageContext.setAttribute("crcn", "\r\n"); //Space, Enter
@@ -16,6 +15,7 @@
  <title>BOOKDUKE : 도서 목록</title>
 </head>
 <body id="searchDiv">
+<div style="margin-left: 4rem;">
 
 <c:choose>
 			   <c:when test="${ empty goodsList  }" >
@@ -24,6 +24,8 @@
 					  </div>
 			   </c:when>
 			   <c:otherwise>
+			   <h1
+			style="text-align: center; font-size: 30px; font-weight: 600; color: #4e73df; margin-top: 3rem; margin-bottom: 2rem;">${searchWord }</h1>
 	<table id="list_view">
 		<tbody>
 		
@@ -82,3 +84,4 @@
 	</div>
 	 </c:otherwise>
 			 </c:choose>
+			 </div>

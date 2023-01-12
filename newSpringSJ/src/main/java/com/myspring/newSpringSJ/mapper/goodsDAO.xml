@@ -29,14 +29,21 @@
 			and goods_id=#{goods_id}
 </select>
 
- <select id="selectGoodsBySearchWord" resultType="com.myspring.newSpringSJ.entity.GoodsVO"   parameterType="String"  >
+ 
+ <select id="selectGoodsBySearchWord" resultType="com.myspring.newSpringSJ.entity.GoodsVO"   parameterType="Map"  >
 		select g.*,d.fileName as goods_fileName from tb_goods g, tb_goods_image d
 		    where g.goods_id=d.goods_id
 		    and d.filetype='main_image'
-		    and g.goods_title like concat(concat('%', #{searchWord}), '%')
+		    
+		    <if test=" goods_title!='' and goods_title!=null">
+			       and g.goods_title like concat(concat('%', #{searchWord}), '%')
+			</if>
+			<if test=" goods_status!='' and goods_status!=null">
+			       and g.goods_status like concat(concat('%', #{searchWord}), '%')
+			</if>
+		    
 		    order by g.goods_creDate desc
 </select>	
-	
 <select id="selectKeywordSearch" resultType="String"   parameterType="String"  >
         select goods_title from tb_goods 
         where         

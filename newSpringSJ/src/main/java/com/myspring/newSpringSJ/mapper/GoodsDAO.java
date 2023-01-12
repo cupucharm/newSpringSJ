@@ -1,5 +1,6 @@
 package com.myspring.newSpringSJ.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.myspring.newSpringSJ.entity.GoodsVO;
@@ -15,5 +16,5 @@ public interface GoodsDAO {
 
 	List<String> selectKeywordSearch(String keyword);
 
-	List<GoodsVO> selectGoodsBySearchWord(String searchWord);
+	List<GoodsVO> selectGoodsBySearchWord(HashMap<String, String> searchMap);
 }
