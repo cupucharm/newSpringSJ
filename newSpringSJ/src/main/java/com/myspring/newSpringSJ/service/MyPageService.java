@@ -59,4 +59,8 @@ public class MyPageService {
 		return myPageDAO.selectMyDetailInfo(member_id);
 	}
 
+	public void cancelOrder(String order_id) {
+		myPageDAO.updateMyOrderCancel(order_id);
+	}
+
 }

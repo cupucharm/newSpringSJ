@@ -80,9 +80,6 @@ public class GoodsController extends BaseController {
 		session.setAttribute("searchWord", searchWord);
 		session.setAttribute("goodsList", goodsList);
 		
-		//map.put("searchWord", searchWord);
-		//map.put("goodsList", goodsList);
-		
 		return map;
 
 	}
@@ -91,33 +88,5 @@ public class GoodsController extends BaseController {
 	public String goodsList() throws Exception {
 		return "/goods/goodsList";
 	}
-
-//	private void addGoodsInQuick(String goods_id, GoodsVO goodsVO, HttpSession session) {
-//		boolean already_existed = false;
-//		List<GoodsVO> quickGoodsList;
-//		quickGoodsList = (ArrayList<GoodsVO>) session.getAttribute("quickGoodsList");
-//
-//		if (quickGoodsList != null) {
-//			if (quickGoodsList.size() < 4) {
-//				for (int i = 0; i < quickGoodsList.size(); i++) {
-//					GoodsVO _goodsBean = (GoodsVO) quickGoodsList.get(i);
-//					if (goods_id.equals(_goodsBean.getGoods_id())) {
-//						already_existed = true;
-//						break;
-//					}
-//				}
-//				if (already_existed == false) {
-//					quickGoodsList.add(goodsVO);
-//				}
-//			}
-//
-//		} else {
-//			quickGoodsList = new ArrayList<GoodsVO>();
-//			quickGoodsList.add(goodsVO);
-//
-//		}
-//		session.setAttribute("quickGoodsList", quickGoodsList);
-//		session.setAttribute("quickGoodsListNum", quickGoodsList.size());
-//	}
 
 }

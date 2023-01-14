@@ -72,4 +72,10 @@
 		delete from tb_member where member_id=#{member_id}
 	</delete>
 	
+	<update id="updateMyOrderCancel">
+	   update tb_order
+	 	  set delivery_state='10'
+	   where order_id=#{order_id}
+	</update>
+	
 </mapper>

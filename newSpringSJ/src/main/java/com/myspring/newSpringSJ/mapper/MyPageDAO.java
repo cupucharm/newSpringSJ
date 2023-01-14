@@ -18,4 +18,6 @@ public interface MyPageDAO {
 
 	void deleteMember(Map<String, String> memberMap);
 
+	void updateMyOrderCancel(String order_id);
+
 }

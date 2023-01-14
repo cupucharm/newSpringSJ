@@ -25,14 +25,19 @@
 				     src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
 
 			<div class="title">${item.goods_title }</div>
-			<div class="price">
-		  	   <fmt:formatNumber  value="${item.goods_price}" type="number" var="goods_price" />
+			<div class="price" style="text-decoration: line-through;">
+				  <fmt:formatNumber  value="${item.goods_price}" type="number" var="goods_price" />
 		          ${goods_price}원
+			</div>
+			<div class="price">
+		  	   <fmt:formatNumber  value="${item.goods_sales_price}" type="number" var="goods_sales_price" />
+		  	   <fmt:parseNumber var="percent" integerOnly="true" value="${ (item.goods_price - item.goods_sales_price) /item.goods_price * 100 }"/>
+				             ${goods_sales_price}원(${percent}%할인)
 			</div>
 		</div>
 	   <c:if test="${goods_count==15   }">
          <div class="book">
-           <font size=20> <a href="#">more</a></font>
+           <font size=20> <a onclick="showGoods(this)" data-value="1">더보기</a></font>
          </div>
      </c:if>
   </c:forEach>
@@ -51,14 +56,19 @@
 		 <img width="121" height="154" 
 				src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
 		<div class="title">${item.goods_title }</div>
-		<div class="price">
-		    <fmt:formatNumber  value="${item.goods_price}" type="number" var="goods_price" />
-		       ${goods_price}원
-		  </div>
+		<div class="price" style="text-decoration: line-through;">
+				  <fmt:formatNumber  value="${item.goods_price}" type="number" var="goods_price" />
+		          ${goods_price}원
+			</div>
+			<div class="price">
+		  	   <fmt:formatNumber  value="${item.goods_sales_price}" type="number" var="goods_sales_price" />
+		  	   <fmt:parseNumber var="percent" integerOnly="true" value="${ (item.goods_price - item.goods_sales_price) /item.goods_price * 100 }"/>
+				             ${goods_sales_price}원(${percent}%할인)
+			</div>
 	</div>
 	 <c:if test="${goods_count==15   }">
      <div class="book">
-       <font size=20> <a href="#">more</a></font>
+       <font size=20> <a onclick="showGoods(this)" data-value="3">더보기</a></font>
      </div>
    </c:if>
 	</c:forEach>
@@ -80,18 +90,49 @@
 		 <img width="121" height="154" 
 				src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
 		<div class="title">${item.goods_title }</div>
-		<div class="price">
-		    <fmt:formatNumber  value="${item.goods_price}" type="number" var="goods_price" />
-		       ${goods_price}원
-		  </div>
+		<div class="price" style="text-decoration: line-through;">
+				  <fmt:formatNumber  value="${item.goods_price}" type="number" var="goods_price" />
+		          ${goods_price}원
+			</div>
+			<div class="price">
+		  	   <fmt:formatNumber  value="${item.goods_sales_price}" type="number" var="goods_sales_price" />
+		  	   <fmt:parseNumber var="percent" integerOnly="true" value="${ (item.goods_price - item.goods_sales_price) /item.goods_price * 100 }"/>
+				             ${goods_sales_price}원(${percent}%할인)
+			</div>
 	</div>
 	 <c:if test="${goods_count==15   }">
      <div class="book">
-       <font size=20> <a href="#">more</a></font>
+       <font size=20> <a onclick="showGoods(this)" data-value="2">더보기</a></font>
      </div>
    </c:if>
 	</c:forEach>
 </div>
 </div>
+<script type="text/javascript">
+<script type="text/javascript">
+
+
+function showGoods(item) {
+	
+	fetch("${contextPath}/goods/searchGoods.do", {
+		//option
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json;charset=utf-8'
+		},
+		body: JSON.stringify({
+			"searchWord": item.getAttribute('data-value'),
+			"pageNum" : "1",
+			"goods_status" : "goods_status"
+		})
+	})
+	.then(response => response.json())
+	.then(jsonResult => {
+		location.href = "/goods/goodsList.do";
+	});
+	
+	}
+</script>
+
 </body>
 </html>

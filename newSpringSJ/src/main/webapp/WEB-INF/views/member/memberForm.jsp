@@ -244,7 +244,7 @@ function checkEmailVaild() {
 			</div>
 
 			<div class="fixed_join">
-				<input name="email" type="text" id="email" placeholder="이메일" required="required">
+				<input name="email" type="email" id="email" placeholder="이메일" required="required">
 			
 			
 			<div class="mail_check_wrap">

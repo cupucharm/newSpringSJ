@@ -55,6 +55,15 @@
 			<exclude-mapping path="/cart/addGoodsInCart.do"/>
 			<beans:bean id="CartInterceptor" class="com.myspring.newSpringSJ.interceptor.CartInterceptor"></beans:bean>
 		</interceptor>
+		<interceptor>
+			<mapping path="/order/**"/>
+			<exclude-mapping path="/order/orderEachGoods.do"/>
+			<beans:bean id="OrderInterceptor" class="com.myspring.newSpringSJ.interceptor.OrderInterceptor"></beans:bean>
+		</interceptor>
+		<interceptor>
+			<mapping path="/mypage/**"/>
+			<beans:bean id="MypageInterceptor" class="com.myspring.newSpringSJ.interceptor.MypageInterceptor"></beans:bean>
+		</interceptor>
     </interceptors>
     
     <!-- 멀티파트 리졸버 -->

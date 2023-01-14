@@ -1,7 +1,5 @@
 package com.myspring.newSpringSJ.entity;
 
-import java.sql.Timestamp;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,10 +15,14 @@ public class OrderVO {
 	private int order_id;
 	private int goods_id;
 	private String goods_title;
+	
+	private int goods_price;
+	private String goods_delivery_price;
+	
 	private int goods_sales_price;
 	private int total_goods_price;
 	private int cart_goods_qty; 
-	private int order_goods_qty; 
+	private String order_goods_qty; 
 	private String orderer_name;
 	private String receiver_name;
 	private String receiver_phone;

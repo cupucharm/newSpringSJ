@@ -55,7 +55,7 @@ public class MyPageController extends BaseController {
 	public String beforeUpdate() throws Exception {
 		return "/mypage/beforeUpdate";
 	}
-	
+
 	@RequestMapping("/beforeDelete.do")
 	public String beforeDelete() throws Exception {
 		return "/mypage/beforeDelete";
@@ -65,8 +65,7 @@ public class MyPageController extends BaseController {
 	public String updateMyInfo() throws Exception {
 		return "/mypage/updateMyInfo";
 	}
-	
-	
+
 	@RequestMapping(value = "/deletePwChk.do", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, String> deletePwChk(@RequestBody HashMap<String, String> deleteMemberMap,
@@ -93,7 +92,7 @@ public class MyPageController extends BaseController {
 		}
 		return map;
 	}
-	
+
 	@RequestMapping(value = "/deleteMember.do", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, String> deleteMember(@RequestBody HashMap<String, String> deleteMemberMap,
@@ -110,7 +109,7 @@ public class MyPageController extends BaseController {
 		MemberVO memberVO = myPageService.deleteMember(memberMap);
 		session.setAttribute("isLogOn", false);
 		session.removeAttribute("memberInfo");
-		
+
 		if (memberVO == null) {
 			map.put("status", "true");
 			map.put("message", "탈퇴되었습니다. 안녕히가세요.");
@@ -216,6 +215,20 @@ public class MyPageController extends BaseController {
 			resultMap.put("url", "/mypage/myDetailInfo.do");
 		} else {
 			resultMap.put("message", "failed");
+		}
+		return resultMap;
+	}
+
+	@RequestMapping(value = "/cancelMyOrder.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> cancelMyOrder(@RequestBody HashMap<String, String> cancelMap) throws Exception {
+		Map<String, String> resultMap = new HashMap<>();
+		try {
+			myPageService.cancelOrder(cancelMap.get("order_id"));
+			resultMap.put("status", "true");
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultMap.put("status", "false");
 		}
 		return resultMap;
 	}

@@ -114,7 +114,7 @@ article {
 	width: 590px; font-size: 0.75em; float: left;
 }
 .detail_table table {
-	width: 95%; border-top-color: rgb(51, 51, 51); border-bottom-color: rgb(51, 51, 51); border-top-width: 2px; border-bottom-width: 1px; border-top-style: solid; border-bottom-style: solid; border-collapse: collapse;
+	width: 100%; border-top-color: rgb(51, 51, 51); border-bottom-color: rgb(51, 51, 51); border-top-width: 2px; border-bottom-width: 1px; border-top-style: solid; border-bottom-style: solid; border-collapse: collapse;
 }
 .detail_table table td {
 	padding: 7px 0px 7px 10px;
@@ -137,7 +137,7 @@ article {
 
 
 .detail_table table td.fixed_join {
-	width: 110px; font-weight: bold; color: #0000cc;background:  #e1e1ff;
+	width: 110px; font-weight: bold;
 }
 
 .detail_table ul {
@@ -311,9 +311,9 @@ article ul#page_control li {
 article ul#page_control li a {
 	padding: 2px 5px; border: 1px solid rgb(204, 204, 204); border-image: none; display: block;
 }
-article ul#page_control li a:hover {
+/* article ul#page_control li a:hover {
 	border: 1px solid rgb(255, 0, 0); border-image: none; color: rgb(255, 0, 0);
-}
+} */
 article ul#page_control li a.no_border {
 	border: currentColor; border-image: none; padding-top: 3px;
 }
@@ -444,7 +444,7 @@ ul.tabs li.active {
 	background: rgb(255, 255, 255); border-color: rgb(255, 0, 0) rgb(255, 0, 0) rgb(255, 255, 255); border-bottom-width: 2px; border-bottom-style: solid;
 }
 ul.tabs li.active a:hover {
-	background: rgb(255, 255, 255); border-color: rgb(255, 0, 0) rgb(255, 0, 0) rgb(255, 255, 255); border-bottom-width: 2px; border-bottom-style: solid;
+	background: rgb(255, 255, 255); /* border-color: rgb(255, 0, 0) rgb(255, 0, 0) rgb(255, 255, 255); */ border-bottom-width: 2px; border-bottom-style: solid;
 }
 .tab_container {
 	background: rgb(255, 255, 255); width: 100%; clear: both; border-top-color: currentColor; border-top-width: medium; border-top-style: none; float: left;

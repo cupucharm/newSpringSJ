@@ -15,55 +15,11 @@
 <html>
 <head>
 <title>BOOKDUKE : 상품 상세보기</title>
-<script type="text/javascript">
-	
-	
-function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
-	var _isLogOn=document.getElementById("isLogOn");
-	var isLogOn=_isLogOn.value;
-	
-	 if(isLogOn=="false" || isLogOn=='' ){
-		alert("로그인 후 주문이 가능합니다!!!");
-	} 
-	
-	
-		var total_price,final_total_price;
-		var order_goods_qty=document.getElementById("order_goods_qty");
-		
-		var formObj=document.createElement("form");
-		var i_goods_id = document.createElement("input"); 
-    var i_goods_title = document.createElement("input");
-    var i_goods_sales_price=document.createElement("input");
-    var i_fileName=document.createElement("input");
-    var i_order_goods_qty=document.createElement("input");
-    
-    i_goods_id.name="goods_id";
-    i_goods_title.name="goods_title";
-    i_goods_sales_price.name="goods_sales_price";
-    i_fileName.name="goods_fileName";
-    i_order_goods_qty.name="order_goods_qty";
-    
-    i_goods_id.value=goods_id;
-    i_order_goods_qty.value=order_goods_qty.value;
-    i_goods_title.value=goods_title;
-    i_goods_sales_price.value=goods_sales_price;
-    i_fileName.value=fileName;
-    
-    formObj.appendChild(i_goods_id);
-    formObj.appendChild(i_goods_title);
-    formObj.appendChild(i_goods_sales_price);
-    formObj.appendChild(i_fileName);
-    formObj.appendChild(i_order_goods_qty);
 
-    document.body.appendChild(formObj); 
-    formObj.method="post";
-    formObj.action="${contextPath}/order/orderEachGoods.do";
-    formObj.submit();
-	}	
-</script>
 </head>
 <body>
 	<div style="margin-left:7rem;">
+	<input type="hidden" name="isLogOn" id="isLogOn" value="${isLogOn}"/>
 	<hgroup>
 		<h1>컴퓨터와 인터넷</h1>
 		<h2>국내외 도서 &gt; 컴퓨터와 인터넷 &gt; 웹 개발</h2>
@@ -89,8 +45,9 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 				<tr class="dot_line">
 					<td class="fixed">판매가</td>
 					<td class="active"><span >
-					   <fmt:formatNumber  value="${goods.goods_price*0.9}" type="number" var="discounted_price" />
-				         ${discounted_price}원(10%할인)</span></td>
+					   <fmt:formatNumber  value="${goods.goods_sales_price}" type="number" var="discounted_price" />
+					   <fmt:parseNumber var="percent" integerOnly="true" value="${ (goods.goods_price - goods.goods_sales_price) /goods.goods_price * 100 }"/>
+					${discounted_price}원 (${percent }%할인)</span></td>
 				</tr>
 				<tr>
 					<td class="fixed">포인트적립</td>
@@ -133,19 +90,18 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 					<td class="fixed">수량</td>
 					<td class="fixed">
 			      <select style="width: 60px;" id="order_goods_qty">
-				      <option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
+				      		<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
 			     </select>
 					 </td>
 				</tr>
 			</tbody>
 		</table>
 		<ul>
-			<li><a class="buy" href="javascript:fn_order_each_goods('${goods.goods_id }','${goods.goods_title }','${goods.goods_sales_price}','${goods.goods_fileName}');">구매하기 </a></li>
-			<%-- <li><a class="cart" id="addCaart" href="javascript:add_cart('${goods.goods_id }')">장바구니</a></li> --%>
+			<li><a class="buy" href="javascript:fn_order_each_goods('${goods.goods_id }','${goods.goods_title }','${goods.goods_price}','${goods.goods_sales_price}','${goods.goods_fileName}', '${goods.goods_delivery_price}');">구매하기 </a></li>
 			<li><a class="cart" id="addCaart">장바구니</a></li>
 			
 			
@@ -153,6 +109,9 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 		</ul>
 	</div>
 	<input type="hidden" value="${goods.goods_id }" id="goods_id">
+	<input type="hidden" value="${goods.goods_title }" id="goods_title">
+	<input type="hidden" value="${goods.goods_sales_price }" id="goods_sales_price">
+	<input type="hidden" value="${goods.goods_fileName }" id="goods_fileName">
 	<div class="clear"></div>
 	<!-- 내용 들어 가는 곳 -->
 	<div id="container">
@@ -165,7 +124,7 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 			<li><a href="#tab6">리뷰</a></li>
 		</ul>
 		<div class="tab_container">
-			<div class="tab_content" id="tab1">
+			<div class="tab_content" id="tab1" style="margin-left: 3rem;">
 				<h4>책소개</h4>
 				<p>${fn:replace(goods.goods_intro,crcn,br)}</p>
 				<c:forEach var="image" items="${imageList }">
@@ -235,17 +194,55 @@ function add_cart() {
 			.then(response => response.json())
 			.then(jsonResult => {
 				if(jsonResult.result=='add_success'){
-					alert("장바구니에 추가되었습니다.");
+					  if (confirm("장바구니에 추가했습니다. \n장바구니로 이동하시겠습니까?")) {
+						  location.href = '${contextPath}/cart/myCartList.do';
+				        }
 				}else if(jsonResult.result=='already_existed'){
-					alert("이미 장바구니에 담긴 상품입니다.");	
+					 if (confirm("이미 장바구니에 담긴 상품입니다. \n장바구니로 이동하시겠습니까?")) {
+						  location.href = '${contextPath}/cart/myCartList.do';
+				        }
 				} else if(jsonResult.result=='please_login'){
 					alert("로그인 해주세요.");
 					location.href = jsonResult.url;
 				}
 			});
 }
+
+
+function fn_order_each_goods(goods_id,goods_title,goods_price,goods_sales_price,fileName, goods_delivery_price){
+	var isLogOn=document.getElementById("isLogOn").value;
+	
+	 if(isLogOn=="false" || isLogOn=='' ){
+		alert("로그인 후 주문이 가능합니다");
+		location.href="/member/loginForm.do"
+	} 
+	
+	var order_goods_qty = document.getElementById("order_goods_qty");
+	var goods_goods_qty = (order_goods_qty.options[order_goods_qty.selectedIndex].value);
+		
+	fetch("${contextPath}/order/orderEachGoods.do", {
+		//option
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json;charset=utf-8'
+		},
+		body: JSON.stringify({
+			"goods_id": goods_id,
+			"goods_title": goods_title,
+			"goods_price": goods_price,
+			"goods_sales_price": goods_sales_price,
+			"goods_fileName": fileName,
+			"order_goods_qty": goods_goods_qty,
+			"goods_delivery_price": goods_delivery_price
+		})
+	})
+		.then(response => response.json())
+		.then(jsonResult => {
+			location.href = jsonResult.url;
+		});
+
+	}	
 </script>
 
 </body>
 </html>
-<input type="hidden" name="isLogOn" id="isLogOn" value="${isLogOn}"/>
